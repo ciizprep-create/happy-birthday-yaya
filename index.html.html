@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Special Gift for Yaya 🎁</title>
+
+  <!-- CONFETTI -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family: 'Arial', sans-serif;
+    }
+
+    body{
+      background:#fff;
+      overflow:hidden;
+    }
+
+    .page{
+      display:none;
+      width:100vw;
+      height:100vh;
+      justify-content:center;
+      align-items:center;
+      text-align:center;
+    }
+
+    .active{
+      display:flex;
+      flex-direction:column;
+    }
+
+    /* PAGE 1 */
+    #page1 h1{
+      font-size:28px;
+      margin-bottom:10px;
+    }
+
+    #page1 button{
+      margin-top:20px;
+      padding:12px 24px;
+      border:none;
+      background:#ff6fa5;
+      color:white;
+      font-size:16px;
+      border-radius:8px;
+      cursor:pointer;
+    }
+
+    /* PAGE 2 */
+    #page2{
+      flex-direction:column;
+    }
+
+    .bar{
+      width:220px;
+      height:12px;
+      border-radius:10px;
+      background:#eee;
+      overflow:hidden;
+      margin-top:10px;
+    }
+
+    .fill{
+      width:0%;
+      height:100%;
+      background:#ff6fa5;
+      transition:width 0.3s;
+    }
+
+    /* PAGE 3 */
+    #page3{
+      background:white;
+    }
+
+    #page3 img{
+      width:100vw;
+      height:100vh;
+      object-fit:contain;
+      animation:fadeIn 1.2s ease;
+    }
+
+    @keyframes fadeIn{
+      from{
+        opacity:0;
+        transform:scale(0.96);
+      }
+      to{
+        opacity:1;
+        transform:scale(1);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- PAGE 1 -->
+  <div class="page active" id="page1">
+    <h1>🎁 Special Gift for Yaya</h1>
+    <p>klik tombolnya yaa</p>
+    <button onclick="openGift()">Buka Hadiah</button>
+  </div>
+
+  <!-- PAGE 2 -->
+  <div class="page" id="page2">
+    <p>yayay lagi loading...</p>
+    <div class="bar">
+      <div class="fill" id="fill"></div>
+    </div>
+  </div>
+
+  <!-- PAGE 3 -->
+  <div class="page" id="page3">
+    <img src="kartu.jpg" alt="Happy Birthday Yaya">
+  </div>
+
+<script>
+  function openGift(){
+    document.getElementById('page1').classList.remove('active');
+    document.getElementById('page2').classList.add('active');
+
+    let progress = 0;
+    const fill = document.getElementById('fill');
+
+    const interval = setInterval(()=>{
+      progress += 2;
+      fill.style.width = progress + "%";
+
+      if(progress >= 100){
+        clearInterval(interval);
+        document.getElementById('page2').classList.remove('active');
+        document.getElementById('page3').classList.add('active');
+        launchConfetti();
+      }
+    }, 80);
+  }
+
+  function launchConfetti(){
+    const duration = 2 * 1000;
+    const end = Date.now() + duration;
+
+    (function frame(){
+      confetti({
+        particleCount: 4,
+        spread: 70,
+        origin: { y: 0.6 }
+      });
+      if(Date.now() < end){
+        requestAnimationFrame(frame);
+      }
+    })();
+  }
+</script>
+
+</body>
+</html>
+
